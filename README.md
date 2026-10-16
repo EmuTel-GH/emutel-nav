@@ -16,7 +16,7 @@ secrets and of anything beyond the sidebar itself.
 ## Use
 
 ```bash
-npm install https://github.com/EmuTel-GH/emutel-nav/archive/refs/tags/v1.0.1.tar.gz
+npm install https://github.com/EmuTel-GH/emutel-nav/archive/refs/tags/v1.0.2.tar.gz
 ```
 
 ```js

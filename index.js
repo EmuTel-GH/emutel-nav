@@ -46,7 +46,7 @@ export const EMUTEL_APPS = [
   { key: "tickets", label: "Tickets", href: "https://tickets.emutel.net/tickets", icon: "lifeBuoy" },
   { key: "projects", label: "Projects", href: "https://projects.emutel.net/", icon: "folderKanban" },
   { key: "billing", label: "Billing", href: "https://billing.emutel.net/", icon: "dollar" },
-  { key: "sales", label: "Sales", href: "https://sales.emutel.com.au/", icon: "trendingUp" },
+  { key: "sales", label: "Sales", href: "https://sales.emutel.net/", icon: "trendingUp" },
 ];
 const ALL_TOOLS_URL = "https://admin.emutel.net/";
 
