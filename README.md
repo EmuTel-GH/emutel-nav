@@ -16,7 +16,7 @@ secrets and of anything beyond the sidebar itself.
 ## Use
 
 ```bash
-npm install https://github.com/EmuTel-GH/emutel-nav/archive/refs/tags/v1.0.3.tar.gz
+npm install https://github.com/EmuTel-GH/emutel-nav/archive/refs/tags/v1.1.0.tar.gz
 ```
 
 ```js
@@ -47,6 +47,16 @@ hides itself under 768px until `mobileOpen`, and the mobile bar shows only under
 - `catalogue`: core's tool catalogue (`/api/v1/admin/nav` groups). With it, "All tools" opens a
   panel listing every tool; without it, "All tools" links to the launcher at admin.emutel.net.
 - `wordmark` / `logo`: white-label instances pass their own.
+
+Light/dark is shared across the apps through one cookie on `.emutel.net`:
+
+```js
+import { useSharedTheme } from "@emutel/nav";
+const [dark, toggleDark, ready] = useSharedTheme("etb-theme"); // the app's old key, read as a fallback
+```
+
+The font is embedded in `nav.css` (Montserrat, under its own family name), so the sidebar text is
+identical in every app whatever the page itself loads.
 
 ## Change it
 

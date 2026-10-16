@@ -14,6 +14,64 @@ import { EMUTEL_LOGO } from "./logo.js";
 
 export { EMUTEL_LOGO };
 
+// ─── shared light/dark choice ────────────────────────────────────────────────────────────────────
+//
+// Each app is its own subdomain, so localStorage is per app and the theme had to be set four times.
+// The choice lives in one cookie on the parent domain instead, which every *.emutel.net app reads.
+// The app's own localStorage key is still read (so nobody's current choice is lost before they next
+// toggle) and still written (so the app's own pre-paint code, if any, keeps working).
+
+export const THEME_COOKIE = "emutel-theme";
+const THEME_DOMAIN = "emutel.net";
+
+function readCookie(name) {
+  try {
+    const m = document.cookie.match(new RegExp("(?:^|; )" + name + "=([^;]*)"));
+    return m ? decodeURIComponent(m[1]) : null;
+  } catch { return null; }
+}
+
+/** The shared choice ("dark" | "light"), then the app's own remembered one, then the default. */
+export function readTheme(localKey, defaultDark = false) {
+  const shared = readCookie(THEME_COOKIE);
+  if (shared === "dark" || shared === "light") return shared === "dark";
+  try {
+    const own = localKey ? localStorage.getItem(localKey) : null;
+    if (own === "dark" || own === "light") return own === "dark";
+  } catch { /* storage blocked */ }
+  return defaultDark;
+}
+
+export function writeTheme(dark, localKey) {
+  const v = dark ? "dark" : "light";
+  try {
+    const host = location.hostname;
+    // Parent-domain cookie on our hosts; host-only anywhere else (localhost, a tenant's domain).
+    const domain = host === THEME_DOMAIN || host.endsWith("." + THEME_DOMAIN) ? "; Domain=." + THEME_DOMAIN : "";
+    document.cookie = `${THEME_COOKIE}=${v}; Path=/; Max-Age=31536000; SameSite=Lax${domain}${location.protocol === "https:" ? "; Secure" : ""}`;
+  } catch { /* ignore */ }
+  try { if (localKey) localStorage.setItem(localKey, v); } catch { /* storage blocked */ }
+}
+
+/**
+ * [dark, toggleDark, ready] for an app shell. Re-reads when the tab comes back into view, so a tab
+ * left open in one app follows a change made in another.
+ */
+export function useSharedTheme(localKey, defaultDark = false) {
+  const [dark, setDark] = useState(defaultDark);
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    setDark(readTheme(localKey, defaultDark));
+    setReady(true);
+    const sync = () => { if (document.visibilityState === "visible") setDark(readTheme(localKey, defaultDark)); };
+    document.addEventListener("visibilitychange", sync);
+    window.addEventListener("focus", sync);
+    return () => { document.removeEventListener("visibilitychange", sync); window.removeEventListener("focus", sync); };
+  }, [localKey, defaultDark]);
+  const toggle = () => { const n = !dark; setDark(n); writeTheme(n, localKey); };
+  return [dark, toggle, ready];
+}
+
 // ─── icons (lucide paths, inlined so the package needs no icon library) ──────────────────────────
 
 function svg(size, children, extra) {

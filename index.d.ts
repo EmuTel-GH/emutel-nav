@@ -72,6 +72,14 @@ export interface EmutelMobileBarProps {
 export declare const EMUTEL_APPS: EmutelApp[];
 /** The EmuTel mark as a data URI: the sidebar default, for apps that want it elsewhere. */
 export declare const EMUTEL_LOGO: string;
+/** Name of the shared light/dark cookie (on .emutel.net). */
+export declare const THEME_COOKIE: string;
+/** The shared choice, then the app's own localStorage key, then the default. */
+export declare function readTheme(localKey?: string, defaultDark?: boolean): boolean;
+/** Remember the choice for every *.emutel.net app (and in the app's own key). */
+export declare function writeTheme(dark: boolean, localKey?: string): void;
+/** [dark, toggleDark, ready]: shared across apps, re-read when the tab comes back into view. */
+export declare function useSharedTheme(localKey?: string, defaultDark?: boolean): [boolean, () => void, boolean];
 export declare function initials(name?: string | null): string;
 export declare function EmutelMobileBar(props: EmutelMobileBarProps): JSX.Element;
 export declare function EmutelSidebar(props: EmutelSidebarProps): JSX.Element;
