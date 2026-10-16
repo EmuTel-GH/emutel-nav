@@ -27,8 +27,11 @@
   -webkit-font-smoothing: antialiased;
 }
 .emn-side *, .emn-mobilebar *, .emn-panel * { box-sizing: border-box; }
-.emn-side a, .emn-mobilebar a, .emn-panel a { text-decoration: none; color: inherit; }
-.emn-side button, .emn-mobilebar button, .emn-panel button {
+/* Resets at class-level specificity (:where), so every emn- class below wins over them. As plain
+   `.emn-side button` they outranked the classes, and the sales console's "All tools" (a button there,
+   a link elsewhere) took the inherited font size instead of its own. */
+.emn-side :where(a), .emn-mobilebar :where(a), .emn-panel :where(a) { text-decoration: none; color: inherit; }
+.emn-side :where(button), .emn-mobilebar :where(button), .emn-panel :where(button) {
   font: inherit; color: inherit; background: none; border: 0; margin: 0; cursor: pointer; text-align: left;
 }
 .emn-side svg, .emn-mobilebar svg, .emn-panel svg { flex-shrink: 0; display: block; }
