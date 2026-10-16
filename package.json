@@ -1,6 +1,6 @@
 {
   "name": "@emutel/nav",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "The shared EmuTel staff sidebar: one component and one stylesheet for every staff app.",
   "license": "UNLICENSED",
   "type": "module",
@@ -10,7 +10,7 @@
     ".": { "types": "./index.d.ts", "default": "./index.js" },
     "./nav.css": "./nav.css"
   },
-  "files": ["index.js", "index.d.ts", "nav.css", "README.md"],
+  "files": ["index.js", "logo.js", "index.d.ts", "nav.css", "README.md"],
   "sideEffects": ["*.css"],
   "peerDependencies": {
     "next": ">=14",

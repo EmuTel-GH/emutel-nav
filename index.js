@@ -10,6 +10,9 @@
 
 import { createElement as h, Fragment, useEffect, useRef, useState } from "react";
 import NextLink from "next/link";
+import { EMUTEL_LOGO } from "./logo.js";
+
+export { EMUTEL_LOGO };
 
 // ─── icons (lucide paths, inlined so the package needs no icon library) ──────────────────────────
 
@@ -98,7 +101,7 @@ export function EmutelMobileBar({ product, wordmark, onMenu, back = null, reserv
 //   href = an in-app route (client-side link); external = open in a new tab; onClick = a button.
 //   children show indented under the item while it is active and the sidebar is expanded.
 export default function EmutelSidebar({
-  app, product, wordmark, logo = "/emutel-icon.png", homeHref = "/",
+  app, product, wordmark, logo = EMUTEL_LOGO, homeHref = "/",
   sections = [], footer = [], footerSlot = null, user = null, online = false,
   collapsed = false, onToggleCollapse, dark = false, onToggleDark,
   mobileOpen = false, onMobileClose = () => {},

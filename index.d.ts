@@ -37,7 +37,7 @@ export interface EmutelSidebarProps {
   product?: string;
   /** Whose name is in the corner; default emutel with the t in gold. */
   wordmark?: { text: string; accentIndex: number } | null;
-  /** Image in the corner; default /emutel-icon.png. Empty string hides it. */
+  /** Image in the corner; default EMUTEL_LOGO (embedded, so apps need no copy). Empty string hides it. */
   logo?: string;
   homeHref?: string;
   sections?: NavSection[];
@@ -70,6 +70,8 @@ export interface EmutelMobileBarProps {
 }
 
 export declare const EMUTEL_APPS: EmutelApp[];
+/** The EmuTel mark as a data URI: the sidebar default, for apps that want it elsewhere. */
+export declare const EMUTEL_LOGO: string;
 export declare function initials(name?: string | null): string;
 export declare function EmutelMobileBar(props: EmutelMobileBarProps): JSX.Element;
 export declare function EmutelSidebar(props: EmutelSidebarProps): JSX.Element;
