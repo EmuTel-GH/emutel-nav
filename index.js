@@ -254,9 +254,10 @@ export default function EmutelSidebar({
 
       h("div", { className: "emn-foot" },
         h("div", { className: "emn-rule emn-rule-foot" }),
-        h(Item, { v: { key: "theme", label: dark ? "Light mode" : "Dark mode", icon: dark ? "sun" : "moon", onClick: onToggleDark, title: dark ? "Switch to light" : "Switch to dark" } }),
-        ...footer.map((v) => h(Item, { key: v.key, v })),
+        // Ask Emu, then the app's footer links (What's new...), then Dark mode: the same order in every app.
         footerSlot && !c ? h("div", { className: "emn-slot" }, footerSlot) : null,
+        ...footer.map((v) => h(Item, { key: v.key, v })),
+        h(Item, { v: { key: "theme", label: dark ? "Light mode" : "Dark mode", icon: dark ? "sun" : "moon", onClick: onToggleDark, title: dark ? "Switch to light" : "Switch to dark" } }),
         user && (user.name || user.email)
           ? h("div", { className: "emn-user", title: c ? (user.name || user.email) : undefined },
               h("span", { className: "emn-avatar" }, initials(user.name || user.email), online ? h("span", { className: "emn-online" }) : null),
